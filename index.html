@@ -1,0 +1,1510 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Indian colleges, compare courses, understand admissions, and find official placement and campus information.">
+  <title>Campus Compass | Find your best-fit college</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #10233f;
+      --blue: #315fe8;
+      --pale: #f3f6fc;
+      --muted: #64748b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { color: var(--navy); background: #fff; }
+    .navbar { background: #fff; }
+    .navbar-brand { color: var(--navy); font-weight: 800; letter-spacing: -.04em; }
+    .brand-mark { color: var(--blue); }
+    .nav-link { color: #475569; font-weight: 600; }
+    .hero {
+      overflow: hidden;
+      padding: 5rem 0 4rem;
+      background: radial-gradient(circle at 85% 20%, #dce7ff 0, transparent 30%), linear-gradient(135deg, #f3f6ff, #fff 70%);
+    }
+    .hero h1 { max-width: 700px; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -.055em; line-height: 1.04; }
+    .hero h1 span { color: var(--blue); }
+    .hero-copy { max-width: 610px; color: var(--muted); font-size: 1.1rem; }
+    .hero-note { color: #64748b; font-size: .9rem; }
+    .search-panel { position: relative; z-index: 2; margin-top: -1.6rem; }
+    .search-card { border: 0; border-radius: 1.1rem; box-shadow: 0 14px 40px #10233f12; }
+    .section-space { padding: 4.5rem 0; }
+    .section-tint { background: var(--pale); }
+    .eyebrow { color: var(--blue); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .section-title { font-weight: 800; letter-spacing: -.035em; }
+    .college-card { height: 100%; border: 1px solid #e7ecf4; border-radius: 1rem; transition: transform .18s ease, box-shadow .18s ease; overflow: hidden; }
+    .college-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px #10233f12; }
+    .college-carousel { position: relative; }
+    .college-carousel .carousel-item { position: relative; }
+    .college-carousel .carousel-item img { display: block; width: 100%; height: 180px; object-fit: cover; background: #edf2ff; }
+    .college-image-credit { position: absolute; right: 0; bottom: 0; left: 0; overflow: hidden; padding: 1.4rem .8rem .55rem; background: linear-gradient(transparent, rgba(16, 35, 63, .82)); color: #fff; font-size: .72rem; text-overflow: ellipsis; white-space: nowrap; }
+    .college-image-credit a { color: #fff; text-decoration: underline; }
+    .college-gallery-status { display: grid; height: 180px; place-items: center; padding: 1rem; background: #edf2ff; color: var(--muted); font-size: .9rem; text-align: center; }
+    .college-carousel .carousel-control-prev, .college-carousel .carousel-control-next { width: 2.2rem; height: 2.2rem; top: 50%; transform: translateY(-50%); background: rgba(16, 35, 63, .38); border-radius: 50%; border: 0; }
+    .college-carousel .carousel-control-prev { left: .75rem; }
+    .college-carousel .carousel-control-next { right: .75rem; }
+    .college-carousel .carousel-indicators { margin-bottom: .45rem; }
+    .college-carousel .carousel-indicators [data-bs-target] { width: .5rem; height: .5rem; border-radius: 50%; background-color: #fff; opacity: .75; }
+    .college-carousel .carousel-indicators .active { opacity: 1; }
+    .college-icon { display: grid; width: 52px; height: 52px; place-items: center; border-radius: 14px; background: #edf2ff; font-size: 1.6rem; }
+    .college-location { color: var(--muted); font-size: .92rem; }
+    .tag { display: inline-block; padding: .3rem .6rem; border-radius: 999px; background: #f1f5f9; color: #475569; font-size: .78rem; font-weight: 600; }
+    .placement-box { min-height: 82px; padding: .8rem; border-radius: .75rem; background: #f5f8ff; }
+    .placement-box small { display: block; color: var(--muted); }
+    .placement-box strong { font-size: .95rem; }
+    .btn-primary { --bs-btn-bg: var(--blue); --bs-btn-border-color: var(--blue); --bs-btn-hover-bg: #244bc4; --bs-btn-hover-border-color: #244bc4; }
+    .btn-outline-primary { --bs-btn-color: var(--blue); --bs-btn-border-color: #cbd6ff; --bs-btn-hover-bg: var(--blue); --bs-btn-hover-border-color: var(--blue); }
+    .step-number { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; border-radius: 50%; background: #e7edff; color: var(--blue); font-weight: 800; }
+    .guide-card { height: 100%; border: 1px solid #e7ecf4; border-radius: 1rem; }
+    .footer { background: var(--navy); color: #dbe5f4; }
+    .footer a { color: #fff; }
+    .form-select, .form-control { min-height: 48px; }
+    .form-control:focus, .form-select:focus { border-color: #8ca5ff; box-shadow: 0 0 0 .2rem #315fe822; }
+
+    @media (max-width: 575.98px) {
+      .hero { padding: 3.5rem 0 3rem; }
+      .section-space { padding: 3.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top border-bottom" aria-label="Main navigation">
+    <div class="container">
+      <a class="navbar-brand fs-4" href="#home"><span class="brand-mark">✦</span> Campus Compass</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#colleges">Find colleges</a></li>
+          <li class="nav-item"><a class="nav-link" href="#admissions">Admission guide</a></li>
+          <li class="nav-item"><a class="nav-link" href="#choose">How to choose</a></li>
+          <li class="nav-item"><a class="btn btn-primary rounded-pill px-4 mt-2 mt-lg-0" href="#colleges">Explore colleges</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="container">
+      <div class="eyebrow mb-3">Your next chapter starts here</div>
+      <h1>Find a college that fits <span>your future.</span></h1>
+      <p class="hero-copy mt-3 mb-4">Explore courses, understand admission routes, check placement resources, and find campuses across India—all in one student-friendly guide.</p>
+      <a class="btn btn-primary btn-lg rounded-pill px-4" href="#colleges">Explore colleges <span aria-hidden="true">→</span></a>
+      <p class="hero-note mt-3 mb-0">Use this page to start your research. Always confirm current eligibility, dates, fees, and placement reports on the official college website.</p>
+    </div>
+  </header>
+
+  <section class="search-panel" aria-label="College search">
+    <div class="container">
+      <div class="card search-card">
+        <div class="card-body p-3 p-md-4">
+          <div class="row g-3 align-items-end">
+            <div class="col-lg-5">
+              <label for="collegeSearch" class="form-label fw-semibold">Search colleges or courses</label>
+              <input class="form-control" id="collegeSearch" type="search" placeholder="Try engineering, Delhi, or IIT">
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <label for="courseFilter" class="form-label fw-semibold">Study area</label>
+              <select class="form-select" id="courseFilter">
+                <option value="">All study areas</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Science">Science</option>
+                <option value="Business">Business</option>
+                <option value="Arts">Arts &amp; Humanities</option>
+                <option value="Law">Law</option>
+              </select>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <label for="locationFilter" class="form-label fw-semibold">Campus region</label>
+              <select class="form-select" id="locationFilter">
+                <option value="">All regions</option>
+                <option value="North">North India</option>
+                <option value="South">South India</option>
+                <option value="West">West India</option>
+                <option value="East">East India</option>
+              </select>
+            </div>
+            <div class="col-lg-1 d-grid">
+              <button class="btn btn-primary rounded-3" id="resetFilters" type="button" aria-label="Reset search filters">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section-space" id="colleges">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+          <div>
+            <div class="eyebrow mb-2">Explore your options</div>
+            <h2 class="section-title mb-1">Colleges to get you started</h2>
+            <p class="text-secondary mb-0">Compare the basics, then check each institution’s official information.</p>
+          </div>
+          <div class="text-secondary small" id="resultCount" aria-live="polite"></div>
+        </div>
+        <div class="row g-4" id="collegeList"></div>
+        <div class="text-center text-secondary py-5 d-none" id="noResults">No colleges match those filters. Try changing your search.</div>
+        <p class="small text-secondary mt-4 mb-0">Placement outcomes differ by course, graduating year, and student. We do not rank colleges or promise salaries; use the official placement reports linked on each college’s website.</p>
+      </div>
+    </section>
+
+    <section class="section-space section-tint" id="admissions">
+      <div class="container">
+        <div class="row g-5 align-items-start">
+          <div class="col-lg-5">
+            <div class="eyebrow mb-2">Admissions, made clearer</div>
+            <h2 class="section-title">A simple admission roadmap</h2>
+            <p class="text-secondary">The exact process varies by institution and course. Treat this as a checklist, then follow the current official admission notice.</p>
+            <a class="btn btn-primary rounded-pill px-4" href="#colleges">See college admission links</a>
+          </div>
+          <div class="col-lg-7">
+            <div class="d-flex gap-3 mb-4">
+              <div class="step-number">1</div>
+              <div><h3 class="h5 fw-bold">Choose a course and shortlist</h3><p class="text-secondary mb-0">Match subjects and interests to course eligibility. Compare a few colleges, not just one.</p></div>
+            </div>
+            <div class="d-flex gap-3 mb-4">
+              <div class="step-number">2</div>
+              <div><h3 class="h5 fw-bold">Check eligibility and entrance exams</h3><p class="text-secondary mb-0">Read the official prospectus for required subjects, marks, exam scores, and any category-specific rules.</p></div>
+            </div>
+            <div class="d-flex gap-3 mb-4">
+              <div class="step-number">3</div>
+              <div><h3 class="h5 fw-bold">Apply before the deadline</h3><p class="text-secondary mb-0">Use the official application or counselling portal. Keep documents, a valid email, and payment receipts ready.</p></div>
+            </div>
+            <div class="d-flex gap-3">
+              <div class="step-number">4</div>
+              <div><h3 class="h5 fw-bold">Follow counselling and confirm your seat</h3><p class="text-secondary mb-0">Track allotment rounds, verify the fee and refund rules, and complete document verification on time.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space" id="choose">
+      <div class="container">
+        <div class="text-center mb-5">
+          <div class="eyebrow mb-2">Make a confident decision</div>
+          <h2 class="section-title">How to choose the right college</h2>
+          <p class="text-secondary mb-0">Look beyond rankings and make the choice that works for you.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3"><article class="guide-card p-4"><div class="fs-3 mb-3">📘</div><h3 class="h5 fw-bold">Course &amp; curriculum</h3><p class="text-secondary mb-0">Check subjects, practical learning, faculty, accreditation, and whether the course supports your goals.</p></article></div>
+          <div class="col-md-6 col-lg-3"><article class="guide-card p-4"><div class="fs-3 mb-3">💼</div><h3 class="h5 fw-bold">Placement evidence</h3><p class="text-secondary mb-0">Read recent official reports. Look at roles, recruiters, median outcomes, and the number of students placed.</p></article></div>
+          <div class="col-md-6 col-lg-3"><article class="guide-card p-4"><div class="fs-3 mb-3">📍</div><h3 class="h5 fw-bold">Location &amp; costs</h3><p class="text-secondary mb-0">Consider travel, accommodation, living expenses, campus safety, and access to support services.</p></article></div>
+          <div class="col-md-6 col-lg-3"><article class="guide-card p-4"><div class="fs-3 mb-3">🎓</div><h3 class="h5 fw-bold">Fit &amp; support</h3><p class="text-secondary mb-0">Explore scholarships, student clubs, internships, accessibility, and the campus culture you want.</p></article></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+      <span class="fw-bold">✦ Campus Compass</span>
+      <span class="small">Independent student research guide. Verify all admission and placement details with official sources.</span>
+    </div>
+  </footer>
+
+  <script>
+    const colleges = (() => {
+      const sourceColleges = [
+      {
+        name: "Indian Institute of Technology Madras",
+        shortName: "IIT Madras",
+        city: "Chennai, Tamil Nadu",
+        region: "South",
+        icon: "🏛️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Check the institute site for current course-specific rules.",
+        admissionLink: "https://www.iitm.ac.in/",
+        placement: "Official placement office and reports",
+        site: "https://www.iitm.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Tiruchirappalli",
+        shortName: "NIT Tiruchirappalli",
+        city: "Tiruchirappalli, Tamil Nadu",
+        region: "South",
+        icon: "⚙️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admissions generally use JEE Main scores and JoSAA/CSAB counselling. Confirm current eligibility and dates on the official site.",
+        admissionLink: "https://www.nitt.edu/",
+        placement: "Official Training & Placement reports",
+        site: "https://www.nitt.edu/"
+      },
+      {
+        name: "Indian Institute of Technology Bombay",
+        shortName: "IIT Bombay",
+        city: "Mumbai, Maharashtra",
+        region: "West",
+        icon: "🌆",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Confirm current eligibility and programme rules on the official site.",
+        admissionLink: "https://www.iitb.ac.in/",
+        placement: "Official placement information available on institute site",
+        site: "https://www.iitb.ac.in/"
+      },
+      {
+        name: "University of Delhi",
+        shortName: "University of Delhi",
+        city: "Delhi, Delhi",
+        region: "North",
+        icon: "📚",
+        areas: ["Science", "Business", "Arts", "Law"],
+        courses: "Arts · Science · Commerce · Law",
+        admission: "Many undergraduate admissions use CUET-UG followed by the university’s CSAS process. Requirements vary by programme and college.",
+        admissionLink: "https://admission.uod.ac.in/",
+        placement: "Placement and career-support services vary by college",
+        site: "https://www.du.ac.in/"
+      },
+      {
+        name: "Vellore Institute of Technology",
+        shortName: "VIT Vellore",
+        city: "Vellore, Tamil Nadu",
+        region: "South",
+        icon: "🔬",
+        areas: ["Engineering", "Science", "Business", "Law"],
+        courses: "Engineering · Science · Business · Law",
+        admission: "VITEEE is used for many B.Tech admissions. Other programmes may have different selection processes; check the current admissions page.",
+        admissionLink: "https://viteee.vit.ac.in/",
+        placement: "Official placement information available on institute site",
+        site: "https://vit.ac.in/"
+      },
+      {
+        name: "Christ (Deemed to be University)",
+        shortName: "Christ University",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "🌿",
+        areas: ["Business", "Arts", "Science", "Law"],
+        courses: "Business · Arts · Science · Law",
+        admission: "Selection may include an entrance test, skill assessment, interview, or other steps depending on the programme.",
+        admissionLink: "https://christuniversity.in/admission",
+        placement: "Career guidance and placement information by programme",
+        site: "https://christuniversity.in/"
+      },
+      {
+        name: "Manipal Institute of Technology",
+        shortName: "MIT Manipal",
+        city: "Manipal, Karnataka",
+        region: "South",
+        icon: "💡",
+        areas: ["Engineering", "Science"],
+        courses: "Engineering · Science",
+        admission: "Many engineering programmes use the Manipal Entrance Test (MET). Confirm the current selection process on the admissions portal.",
+        admissionLink: "https://www.manipal.edu/",
+        placement: "Official career services and placement information",
+        site: "https://www.manipal.edu/"
+      },
+      {
+        name: "National Institute of Technology Warangal",
+        shortName: "NIT Warangal",
+        city: "Warangal, Telangana",
+        region: "South",
+        icon: "⚙️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admission generally uses JEE Main scores and JoSAA/CSAB counselling. Check the institute site for current eligibility and deadlines.",
+        admissionLink: "https://www.nitw.ac.in/",
+        placement: "Check official programme-specific placement reports",
+        site: "https://www.nitw.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Rourkela",
+        shortName: "NIT Rourkela",
+        city: "Rourkela, Odisha",
+        region: "East",
+        icon: "🎓",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admission generally uses JEE Main scores and JoSAA/CSAB counselling. Check the official site for current course requirements and dates.",
+        admissionLink: "https://www.nitrkl.ac.in/",
+        placement: "Check official programme-specific placement reports",
+        site: "https://www.nitrkl.ac.in/"
+      },
+      {
+        name: "Jadavpur University",
+        shortName: "Jadavpur University",
+        city: "Kolkata, West Bengal",
+        region: "East",
+        icon: "📚",
+        areas: ["Engineering", "Science", "Arts"],
+        courses: "Engineering · Science · Arts",
+        admission: "Admission methods and eligibility vary by programme. Check the university’s current admission notice for entrance exams, application dates, and requirements.",
+        admissionLink: "https://jadavpuruniversity.in/",
+        placement: "Check department-specific placement information from the university",
+        site: "https://jadavpuruniversity.in/"
+      },
+      {
+        name: "Jamia Millia Islamia",
+        shortName: "Jamia Millia Islamia",
+        city: "New Delhi, Delhi",
+        region: "North",
+        icon: "🏛️",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Selection methods vary by programme and may include entrance tests or other criteria. Check the latest official prospectus.",
+        admissionLink: "https://www.jmi.ac.in/",
+        placement: "Check official programme-specific placement information",
+        site: "https://www.jmi.ac.in/"
+      },
+      {
+        name: "SRM Institute of Science and Technology",
+        shortName: "SRM Institute",
+        city: "Kattankulathur, Tamil Nadu",
+        region: "South",
+        icon: "🔬",
+        areas: ["Engineering", "Science", "Business", "Law"],
+        courses: "Engineering · Science · Business · Law",
+        admission: "Many engineering programmes use SRMJEEE. Admission requirements differ by programme, so confirm them on the official admissions page.",
+        admissionLink: "https://www.srmist.edu.in/admission-india/",
+        placement: "Check official programme-specific placement information",
+        site: "https://www.srmist.edu.in/"
+      },
+      {
+        name: "REVA University",
+        shortName: "REVA University",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "🏫",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission requirements and selection methods vary by programme. Check REVA’s current admissions page for eligibility, application dates, and entrance-test requirements.",
+        admissionLink: "https://www.reva.edu.in/admissions",
+        placement: "Check official programme-specific placement information",
+        site: "https://www.reva.edu.in/"
+      },
+      {
+        name: "Andhra University",
+        shortName: "Andhra University",
+        city: "Visakhapatnam, Andhra Pradesh",
+        region: "South",
+        icon: "📚",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission processes vary by course and may involve state or national entrance exams. Check the current university prospectus for eligibility and application details.",
+        admissionLink: "https://www.andhrauniversity.edu.in/",
+        placement: "Check department-specific placement information with the university",
+        site: "https://www.andhrauniversity.edu.in/"
+      },
+      {
+        name: "VIT-AP University",
+        shortName: "VIT-AP",
+        city: "Amaravati, Andhra Pradesh",
+        region: "South",
+        icon: "🔬",
+        areas: ["Engineering", "Science", "Business", "Law"],
+        courses: "Engineering · Science · Business · Law",
+        admission: "Selection requirements vary by programme. Check the current VIT-AP admissions page for entrance exams, eligibility, and deadlines.",
+        admissionLink: "https://vitap.ac.in/",
+        placement: "Check official programme-specific placement information",
+        site: "https://vitap.ac.in/"
+      },
+      {
+        name: "K L Deemed to be University",
+        shortName: "KL University",
+        city: "Vaddeswaram, Andhra Pradesh",
+        region: "South",
+        icon: "🎓",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission routes and eligibility differ across programmes. Refer to the current official admissions page for entrance-test and application information.",
+        admissionLink: "https://www.kluniversity.in/",
+        placement: "Check official programme-specific placement reports",
+        site: "https://www.kluniversity.in/"
+      },
+      {
+        name: "GITAM (Deemed to be University)",
+        shortName: "GITAM",
+        city: "Visakhapatnam, Andhra Pradesh",
+        region: "South",
+        icon: "🌊",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission requirements vary by programme and may include an entrance test or other selection criteria. Confirm details on GITAM’s current admissions page.",
+        admissionLink: "https://www.gitam.edu/admissions",
+        placement: "Check official programme-specific placement information",
+        site: "https://www.gitam.edu/"
+      },
+      {
+        name: "Indian Institute of Science",
+        shortName: "IISc Bengaluru",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "🔬",
+        areas: ["Science", "Engineering"],
+        courses: "Science · Research · Engineering",
+        admission: "Admission requirements differ by programme and degree level. Check the current official admissions page for eligibility and selection routes.",
+        admissionLink: "https://iisc.ac.in/admissions/",
+        placement: "Review official programme information; outcomes vary by degree and field",
+        site: "https://iisc.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Karnataka, Surathkal",
+        shortName: "NITK Surathkal",
+        city: "Surathkal, Karnataka",
+        region: "South",
+        icon: "🌊",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admissions generally use JEE Main and JoSAA/CSAB counselling. Verify current eligibility and dates through official sources.",
+        admissionLink: "https://www.nitk.ac.in/",
+        placement: "Check official department-specific placement reports",
+        site: "https://www.nitk.ac.in/"
+      },
+      {
+        name: "National Law School of India University",
+        shortName: "NLSIU Bengaluru",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "⚖️",
+        areas: ["Law"],
+        courses: "Law · Public Policy · Social Sciences",
+        admission: "Admission tests and eligibility depend on the programme. Review the current official admissions notice.",
+        admissionLink: "https://www.nls.ac.in/admissions/",
+        placement: "Review official programme and career information",
+        site: "https://www.nls.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Tirupati",
+        shortName: "IIT Tirupati",
+        city: "Tirupati, Andhra Pradesh",
+        region: "South",
+        icon: "🎓",
+        areas: ["Engineering", "Science"],
+        courses: "Engineering · Science",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Confirm current programme requirements on the official site.",
+        admissionLink: "https://www.iittp.ac.in/",
+        placement: "Check official programme-specific placement information",
+        site: "https://www.iittp.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Andhra Pradesh",
+        shortName: "NIT Andhra Pradesh",
+        city: "Tadepalligudem, Andhra Pradesh",
+        region: "South",
+        icon: "⚙️",
+        areas: ["Engineering", "Science"],
+        courses: "Engineering · Science",
+        admission: "B.Tech admissions generally use JEE Main and JoSAA/CSAB counselling. Check official notices for current eligibility and dates.",
+        admissionLink: "https://www.nitandhra.ac.in/",
+        placement: "Check official department-specific placement reports",
+        site: "https://www.nitandhra.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Delhi",
+        shortName: "IIT Delhi",
+        city: "New Delhi, Delhi",
+        region: "North",
+        icon: "🏛️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Other programmes may have different requirements.",
+        admissionLink: "https://home.iitd.ac.in/",
+        placement: "Check official programme-specific placement reports",
+        site: "https://home.iitd.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Kanpur",
+        shortName: "IIT Kanpur",
+        city: "Kanpur, Uttar Pradesh",
+        region: "North",
+        icon: "📐",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Confirm current requirements on the official site.",
+        admissionLink: "https://www.iitk.ac.in/",
+        placement: "Check official programme-specific placement reports",
+        site: "https://www.iitk.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Roorkee",
+        shortName: "IIT Roorkee",
+        city: "Roorkee, Uttarakhand",
+        region: "North",
+        icon: "🏞️",
+        areas: ["Engineering", "Science", "Business", "Arts"],
+        courses: "Engineering · Science · Management · Architecture",
+        admission: "Admission routes vary by programme. Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling.",
+        admissionLink: "https://www.iitr.ac.in/",
+        placement: "Check official programme-specific placement reports",
+        site: "https://www.iitr.ac.in/"
+      },
+      {
+        name: "R.V. College of Engineering",
+        shortName: "RVCE",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "🏗️",
+        areas: ["Engineering"],
+        courses: "Engineering · Technology",
+        admission: "Admission routes can differ by seat category and programme. Check the current official admissions information for eligibility, entrance exams, and counselling.",
+        admissionLink: "https://rvce.edu.in/",
+        placement: "Check official department-specific placement information",
+        site: "https://rvce.edu.in/",
+        dream: true
+      },
+      {
+        name: "PES University",
+        shortName: "PES University",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "💡",
+        areas: ["Engineering", "Science", "Business", "Law"],
+        courses: "Engineering · Science · Business · Law",
+        admission: "Selection requirements vary by programme. Check the current official admissions page for eligibility, entrance tests, and deadlines.",
+        admissionLink: "https://pes.edu/admissions/",
+        placement: "Check official programme-specific placement information",
+        site: "https://pes.edu/",
+        dream: true
+      },
+      {
+        name: "International Institute of Information Technology, Sri City",
+        shortName: "IIIT Sri City",
+        city: "Sri City, Andhra Pradesh",
+        region: "South",
+        icon: "💻",
+        areas: ["Engineering", "Science"],
+        courses: "Computer Science · Electronics · Data Science",
+        admission: "B.Tech admission routes and eligibility can change. Check the institute’s current admission notice and official counselling information.",
+        admissionLink: "https://www.iiits.ac.in/",
+        placement: "Check official programme-specific placement reports",
+        site: "https://www.iiits.ac.in/",
+        dream: true
+      },
+      {
+        name: "Sri Venkateswara University",
+        shortName: "SV University",
+        city: "Tirupati, Andhra Pradesh",
+        region: "South",
+        icon: "📚",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission processes differ by course. Check the latest official prospectus for eligibility, entrance requirements, and application dates.",
+        admissionLink: "https://svuniversity.edu.in/",
+        placement: "Check department-specific placement information",
+        site: "https://svuniversity.edu.in/",
+        dream: true
+      },
+      {
+        name: "Banaras Hindu University",
+        shortName: "BHU",
+        city: "Varanasi, Uttar Pradesh",
+        region: "North",
+        icon: "🎓",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission routes vary by programme. Check the current BHU admission bulletin for entrance tests, eligibility, and application steps.",
+        admissionLink: "https://www.bhu.ac.in/",
+        placement: "Check official department-specific placement information",
+        site: "https://www.bhu.ac.in/",
+        dream: true
+      },
+      {
+        name: "Panjab University",
+        shortName: "Panjab University",
+        city: "Chandigarh, Chandigarh",
+        region: "North",
+        icon: "🏛️",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Selection methods and eligibility vary by programme. Refer to the current official admission notices and prospectus.",
+        admissionLink: "https://puchd.ac.in/",
+        placement: "Check department-specific placement information",
+        site: "https://puchd.ac.in/",
+        dream: true
+      },
+      {
+        name: "Aligarh Muslim University",
+        shortName: "AMU",
+        city: "Aligarh, Uttar Pradesh",
+        region: "North",
+        icon: "📖",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission tests and eligibility depend on the programme. Check the current official guide and application schedule.",
+        admissionLink: "https://www.amu.ac.in/",
+        placement: "Check official department-specific placement information",
+        site: "https://www.amu.ac.in/",
+        dream: true
+      },
+      {
+        name: "Manipal Academy of Higher Education, Bengaluru",
+        shortName: "MAHE Bengaluru",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "🏫",
+        areas: ["Engineering", "Science", "Business", "Arts"],
+        courses: "Engineering · Science · Business · Arts",
+        admission: "Admission requirements vary by course. Check MAHE’s official site for Bengaluru programmes, eligibility, and current application details.",
+        admissionLink: "https://www.manipal.edu/",
+        placement: "Check official Bengaluru campus and programme-specific placement information",
+        site: "https://www.manipal.edu/"
+      },
+      {
+        name: "Indian Institute of Technology Delhi",
+        shortName: "IIT Delhi",
+        city: "New Delhi, Delhi",
+        region: "North",
+        icon: "🧠",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Check the institute’s current eligibility and programme-specific rules.",
+        admissionLink: "https://home.iitd.ac.in/",
+        placement: "Official placement office and annual reports",
+        site: "https://home.iitd.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Kanpur",
+        shortName: "IIT Kanpur",
+        city: "Kanpur, Uttar Pradesh",
+        region: "North",
+        icon: "⚙️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Verify current eligibility and counselling dates on the official site.",
+        admissionLink: "https://www.iitk.ac.in/",
+        placement: "Check official placement reports and career services",
+        site: "https://www.iitk.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Kharagpur",
+        shortName: "IIT Kharagpur",
+        city: "Kharagpur, West Bengal",
+        region: "East",
+        icon: "🏫",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Confirm the latest programme requirements and deadlines.",
+        admissionLink: "https://www.iitkgp.ac.in/",
+        placement: "Official placement office and programme-specific reports",
+        site: "https://www.iitkgp.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Guwahati",
+        shortName: "IIT Guwahati",
+        city: "Guwahati, Assam",
+        region: "East",
+        icon: "🌿",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Refer to the official admissions page for current details.",
+        admissionLink: "https://www.iitg.ac.in/",
+        placement: "Official placement and career development information",
+        site: "https://www.iitg.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Hyderabad",
+        shortName: "IIT Hyderabad",
+        city: "Hyderabad, Telangana",
+        region: "South",
+        icon: "🚀",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Check programme-specific eligibility and dates on the official site.",
+        admissionLink: "https://www.iith.ac.in/",
+        placement: "Official placement reports and student outcomes",
+        site: "https://www.iith.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology Roorkee",
+        shortName: "IIT Roorkee",
+        city: "Roorkee, Uttarakhand",
+        region: "North",
+        icon: "⛰️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate engineering admission generally uses JEE Advanced and JoSAA counselling. Verify current criteria and dates on the official portal.",
+        admissionLink: "https://iitr.ac.in/",
+        placement: "Official placement information and department reports",
+        site: "https://iitr.ac.in/"
+      },
+      {
+        name: "Indian Institute of Technology (BHU) Varanasi",
+        shortName: "IIT BHU",
+        city: "Varanasi, Uttar Pradesh",
+        region: "North",
+        icon: "🏛️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Undergraduate admissions generally use JEE Advanced and JoSAA counselling. Check the institute website for eligibility and seat details.",
+        admissionLink: "https://iitbhu.ac.in/",
+        placement: "Official placement reports by department and sector",
+        site: "https://iitbhu.ac.in/"
+      },
+      {
+        name: "Indian Institute of Science",
+        shortName: "IISc Bangalore",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "🔬",
+        areas: ["Science", "Engineering"],
+        courses: "Science · Engineering · Research",
+        admission: "Admissions depend on the programme and may include entrance exams, research interviews, or merit-based selection. Check the official admissions pages.",
+        admissionLink: "https://iisc.ac.in/",
+        placement: "Research, internship, and career outcomes are published by the institute",
+        site: "https://iisc.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Karnataka",
+        shortName: "NITK Surathkal",
+        city: "Mangaluru, Karnataka",
+        region: "South",
+        icon: "🏗️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admissions generally use JEE Main scores and JoSAA/CSAB counselling. Check current eligibility and dates on the official site.",
+        admissionLink: "https://www.nitk.ac.in/",
+        placement: "Official placement reports and training cell information",
+        site: "https://www.nitk.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Calicut",
+        shortName: "NIT Calicut",
+        city: "Kozhikode, Kerala",
+        region: "South",
+        icon: "🌴",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admissions generally use JEE Main scores and JoSAA/CSAB counselling. Confirm current selection and application details with the institute.",
+        admissionLink: "https://www.nitc.ac.in/",
+        placement: "Check official training and placement information",
+        site: "https://www.nitc.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Allahabad",
+        shortName: "NIT Allahabad",
+        city: "Prayagraj, Uttar Pradesh",
+        region: "North",
+        icon: "🧭",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admissions generally use JEE Main scores and JoSAA/CSAB counselling. Check the official admissions information for dates and eligibility.",
+        admissionLink: "https://www.nita.ac.in/",
+        placement: "Official placement information for each programme",
+        site: "https://www.nita.ac.in/"
+      },
+      {
+        name: "National Institute of Technology Bhopal",
+        shortName: "NIT Bhopal",
+        city: "Bhopal, Madhya Pradesh",
+        region: "Central",
+        icon: "🏙️",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "B.Tech admissions generally use JEE Main scores and JoSAA/CSAB counselling. Check the latest official admission notice for eligibility and deadlines.",
+        admissionLink: "https://www.manit.ac.in/",
+        placement: "Official placement reports and training cell updates",
+        site: "https://www.manit.ac.in/"
+      },
+      {
+        name: "Birla Institute of Technology and Science, Pilani",
+        shortName: "BITS Pilani",
+        city: "Pilani, Rajasthan",
+        region: "North",
+        icon: "🧪",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Admission routes vary by programme and may include BITSAT or direct admission based on merit. Check the official admissions page for the latest process.",
+        admissionLink: "https://www.bitsadmission.com/",
+        placement: "Official placement and internship outcomes published by the institute",
+        site: "https://www.bits-pilani.ac.in/"
+      },
+      {
+        name: "Anna University",
+        shortName: "Anna University",
+        city: "Chennai, Tamil Nadu",
+        region: "South",
+        icon: "📐",
+        areas: ["Engineering", "Science", "Business", "Arts"],
+        courses: "Engineering · Science · Business · Arts",
+        admission: "Admissions depend on the programme and may include state counselling or entrance exams. Check the current official prospectus and counselling schedule.",
+        admissionLink: "https://annauniv.edu/",
+        placement: "Official placement and internship information varies by college and department",
+        site: "https://annauniv.edu/"
+      },
+      {
+        name: "University of Hyderabad",
+        shortName: "UoH",
+        city: "Hyderabad, Telangana",
+        region: "South",
+        icon: "🌐",
+        areas: ["Science", "Arts", "Business", "Law"],
+        courses: "Science · Arts · Business · Law",
+        admission: "Selection methods vary by course and may include entrance tests, interviews, or merit-based screening. Check the current admission bulletin.",
+        admissionLink: "https://uohyd.ac.in/",
+        placement: "Check official placement and career support information",
+        site: "https://uohyd.ac.in/"
+      },
+      {
+        name: "Jawaharlal Nehru University",
+        shortName: "JNU",
+        city: "New Delhi, Delhi",
+        region: "North",
+        icon: "📚",
+        areas: ["Arts", "Science", "Business", "Law"],
+        courses: "Arts · Science · Management · Law",
+        admission: "Admission procedures vary by school and programme. Check the official prospectus and entrance exam schedule for current rules.",
+        admissionLink: "https://www.jnu.ac.in/",
+        placement: "Official placement support and university reports vary by school",
+        site: "https://www.jnu.ac.in/"
+      },
+      {
+        name: "Indian Statistical Institute Kolkata",
+        shortName: "ISI Kolkata",
+        city: "Kolkata, West Bengal",
+        region: "East",
+        icon: "📊",
+        areas: ["Science", "Engineering", "Business"],
+        courses: "Statistics · Science · Data Science · Engineering",
+        admission: "Selection processes depend on the programme and may include national-level tests or interviews. Check the current official notice.",
+        admissionLink: "https://www.isical.ac.in/",
+        placement: "Official placement and careers information for the institute",
+        site: "https://www.isical.ac.in/"
+      },
+      {
+        name: "Osmania University",
+        shortName: "Osmania University",
+        city: "Hyderabad, Telangana",
+        region: "South",
+        icon: "🎓",
+        areas: ["Arts", "Science", "Business", "Law", "Engineering"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission procedures vary widely by course and often involve state counselling or university entrance exams. Refer to current admissions notifications.",
+        admissionLink: "https://www.osmania.ac.in/",
+        placement: "Check department-specific placement information and career services",
+        site: "https://www.osmania.ac.in/"
+      },
+      {
+        name: "Symbiosis International University",
+        shortName: "SIU",
+        city: "Pune, Maharashtra",
+        region: "West",
+        icon: "🌍",
+        areas: ["Business", "Arts", "Law", "Science"],
+        courses: "Business · Arts · Law · Science",
+        admission: "Admissions usually depend on entrance tests, merit, and interviews. Check the current official admissions portal for each programme.",
+        admissionLink: "https://www.symbiosis.ac.in/",
+        placement: "Official placement support and reports by institute and programme",
+        site: "https://www.symbiosis.ac.in/"
+      },
+      {
+        name: "Savitribai Phule Pune University",
+        shortName: "SPPU",
+        city: "Pune, Maharashtra",
+        region: "West",
+        icon: "📖",
+        areas: ["Arts", "Science", "Business", "Engineering", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admissions vary by course and may include merit lists, state-level counselling, or entrance examinations. Check current official notices.",
+        admissionLink: "https://www.unipune.ac.in/",
+        placement: "Check university and affiliated-college placement information",
+        site: "https://www.unipune.ac.in/"
+      },
+      {
+        name: "Indian Institute of Management Ahmedabad",
+        shortName: "IIM Ahmedabad",
+        city: "Ahmedabad, Gujarat",
+        region: "West",
+        icon: "📈",
+        areas: ["Business", "Arts"],
+        courses: "Business · Management · Leadership",
+        admission: "Admissions differ for MBA and other management programmes and usually involve entrance tests and selection rounds. Check the official admissions page.",
+        admissionLink: "https://www.iima.ac.in/",
+        placement: "Official placement reports and recruiter data",
+        site: "https://www.iima.ac.in/"
+      },
+      {
+        name: "Indian Institute of Management Bangalore",
+        shortName: "IIM Bangalore",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "💼",
+        areas: ["Business", "Arts"],
+        courses: "Business · Management · Leadership",
+        admission: "Admissions differ by programme and typically involve entrance exams and selection rounds. Check the official application process and deadlines.",
+        admissionLink: "https://www.iimb.ac.in/",
+        placement: "Official placement and salary reports by batch",
+        site: "https://www.iimb.ac.in/"
+      },
+      {
+        name: "Indian Institute of Management Calcutta",
+        shortName: "IIM Calcutta",
+        city: "Kolkata, West Bengal",
+        region: "East",
+        icon: "📊",
+        areas: ["Business", "Arts"],
+        courses: "Business · Management · Leadership",
+        admission: "Admissions differ by programme and usually include entrance tests and interviews. Check the official website for the current process.",
+        admissionLink: "https://www.iimcal.ac.in/",
+        placement: "Official placement reports and recruiter outcomes",
+        site: "https://www.iimcal.ac.in/"
+      },
+      {
+        name: "Indian Institute of Management Lucknow",
+        shortName: "IIM Lucknow",
+        city: "Lucknow, Uttar Pradesh",
+        region: "North",
+        icon: "🏢",
+        areas: ["Business", "Arts"],
+        courses: "Business · Management · Leadership",
+        admission: "Admissions vary by programme and usually include a common entrance test plus selection rounds. Refer to the official admission notice.",
+        admissionLink: "https://www.iiml.ac.in/",
+        placement: "Official placement reports and career outcomes",
+        site: "https://www.iiml.ac.in/"
+      },
+      {
+        name: "International Institute of Information Technology Hyderabad",
+        shortName: "IIIT Hyderabad",
+        city: "Hyderabad, Telangana",
+        region: "South",
+        icon: "💻",
+        areas: ["Engineering", "Science"],
+        courses: "Computer Science · Electronics · Data Science",
+        admission: "Admission routes and eligibility depend on the programme and may include national exams or institute-specific testing. Check the current official notice.",
+        admissionLink: "https://www.iiit.ac.in/",
+        placement: "Official placement and internship information by programme",
+        site: "https://www.iiit.ac.in/"
+      },
+      {
+        name: "International Institute of Information Technology Bangalore",
+        shortName: "IIIT Bangalore",
+        city: "Bengaluru, Karnataka",
+        region: "South",
+        icon: "🧩",
+        areas: ["Engineering", "Science"],
+        courses: "Computer Science · Data Science · Electronics",
+        admission: "Admission routes vary by academic programme. Check the current official admission information and eligibility criteria.",
+        admissionLink: "https://www.iiitb.ac.in/",
+        placement: "Official placement and internships information by department",
+        site: "https://www.iiitb.ac.in/"
+      },
+      {
+        name: "Amity University Noida",
+        shortName: "Amity Noida",
+        city: "Noida, Uttar Pradesh",
+        region: "North",
+        icon: "🌟",
+        areas: ["Engineering", "Science", "Business", "Law", "Arts"],
+        courses: "Engineering · Science · Business · Law · Arts",
+        admission: "Admission requirements vary by programme and may include entrance exams, merit lists, or interviews. Check the current official admissions page.",
+        admissionLink: "https://amity.edu/",
+        placement: "Check official placement support and programme-specific outcomes",
+        site: "https://amity.edu/"
+      },
+      {
+        name: "Lovely Professional University",
+        shortName: "LPU",
+        city: "Phagwara, Punjab",
+        region: "North",
+        icon: "🌄",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Eligibility and selection processes vary by programme; many programmes use an entrance exam or merit-based process. Check the official admissions portal.",
+        admissionLink: "https://www.lpu.in/",
+        placement: "Official placement support and industrial tie-ups",
+        site: "https://www.lpu.in/"
+      },
+      {
+        name: "Shiv Nadar University",
+        shortName: "SNU",
+        city: "Greater Noida, Uttar Pradesh",
+        region: "North",
+        icon: "🌱",
+        areas: ["Engineering", "Science", "Business", "Arts"],
+        courses: "Engineering · Science · Business · Arts",
+        admission: "Admission methods differ by programme and may include entrance tests, aptitude assessment, and interviews. Check the university admission page.",
+        admissionLink: "https://www.shivnadaru.ac.in/",
+        placement: "Official placement and internship support information",
+        site: "https://www.shivnadaru.ac.in/"
+      },
+      {
+        name: "Ashoka University",
+        shortName: "Ashoka",
+        city: "Sonipat, Haryana",
+        region: "North",
+        icon: "🎒",
+        areas: ["Arts", "Science", "Business"],
+        courses: "Arts · Science · Business",
+        admission: "Admissions may include aptitude tests, interviews, and academic merit review. Refer to the latest official admissions bulletin.",
+        admissionLink: "https://ashoka.edu.in/",
+        placement: "Official career services and placement support information",
+        site: "https://ashoka.edu.in/"
+      },
+      {
+        name: "Bennett University",
+        shortName: "Bennett",
+        city: "Greater Noida, Uttar Pradesh",
+        region: "North",
+        icon: "🚀",
+        areas: ["Engineering", "Business", "Arts", "Science"],
+        courses: "Engineering · Business · Arts · Science",
+        admission: "Selection methods vary by programme and may include entrance exams, personal interviews, and academic performance review. Check the official admissions page.",
+        admissionLink: "https://www.bennett.edu.in/",
+        placement: "Check official placement reports and internship support",
+        site: "https://www.bennett.edu.in/"
+      },
+      {
+        name: "Manav Rachna University",
+        shortName: "MRU",
+        city: "Faridabad, Haryana",
+        region: "North",
+        icon: "🏙️",
+        areas: ["Engineering", "Science", "Business", "Arts"],
+        courses: "Engineering · Science · Business · Arts",
+        admission: "Admission requirements differ by course and may include merit, entrance tests, or interviews. Check the official university prospectus for current steps.",
+        admissionLink: "https://manavrachna.edu.in/",
+        placement: "Official placement support and internship information",
+        site: "https://manavrachna.edu.in/"
+      },
+      {
+        name: "BML Munjal University",
+        shortName: "BMLU",
+        city: "Sonepat, Haryana",
+        region: "North",
+        icon: "🌱",
+        areas: ["Engineering", "Business", "Arts", "Science"],
+        courses: "Engineering · Business · Arts · Science",
+        admission: "Admissions vary by programme and may include entrance tests, aptitude screening, and interviews. Check the official admissions notice for current steps.",
+        admissionLink: "https://www.bmu.edu.in/",
+        placement: "Official placement support and internship opportunities",
+        site: "https://www.bmu.edu.in/",
+        category: "B"
+      },
+      {
+        name: "Guru Gobind Singh Indraprastha University",
+        shortName: "GGSIPU",
+        city: "New Delhi, Delhi",
+        region: "North",
+        icon: "🏛️",
+        areas: ["Engineering", "Business", "Arts", "Law", "Science"],
+        courses: "Engineering · Business · Arts · Law · Science",
+        admission: "Admission methods depend on the programme and may include entrance exams, counselling, or merit screening. Refer to the latest official backup and counselling process.",
+        admissionLink: "https://ipu.ac.in/",
+        placement: "Programme-specific placement and internship information",
+        site: "https://ipu.ac.in/",
+        category: "B"
+      },
+      {
+        name: "University of Petroleum and Energy Studies",
+        shortName: "UPES",
+        city: "Dehradun, Uttarakhand",
+        region: "North",
+        icon: "⛽",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Business",
+        admission: "Admission methods vary by programme and may include entrance tests, interviews, or merit-based selection. Check the official admissions page.",
+        admissionLink: "https://www.upes.ac.in/",
+        placement: "Official placement support and industry partnerships",
+        site: "https://www.upes.ac.in/",
+        category: "B"
+      },
+      {
+        name: "NMIMS University",
+        shortName: "NMIMS",
+        city: "Mumbai, Maharashtra",
+        region: "West",
+        icon: "📊",
+        areas: ["Business", "Arts", "Science", "Law"],
+        courses: "Business · Arts · Science · Law",
+        admission: "Admissions depend on the programme and usually involve entrance exams, interviews, and academic screening. Check the current official notice.",
+        admissionLink: "https://www.nmims.edu/",
+        placement: "Official placement and internship outcomes by school",
+        site: "https://www.nmims.edu/",
+        category: "B"
+      },
+      {
+        name: "Maharashtra Institute of Technology",
+        shortName: "MIT Pune",
+        city: "Pune, Maharashtra",
+        region: "West",
+        icon: "🧪",
+        areas: ["Engineering", "Science", "Business"],
+        courses: "Engineering · Science · Management",
+        admission: "Admission rules differ by course and may include entrance exams or merit-based admissions. Check the official admissions document for current details.",
+        admissionLink: "https://mitwpu.edu.in/",
+        placement: "Official placement support and internship information",
+        site: "https://mitwpu.edu.in/",
+        category: "B"
+      },
+      {
+        name: "Techno India University",
+        shortName: "Techno India",
+        city: "Kolkata, West Bengal",
+        region: "East",
+        icon: "💡",
+        areas: ["Engineering", "Science", "Business", "Arts"],
+        courses: "Engineering · Science · Business · Arts",
+        admission: "Selection depends on the course and may include entrance tests, counselling, or merit-based screening. Check the latest admissions information.",
+        admissionLink: "https://www.technoindiauniversity.ac.in/",
+        placement: "Check programme-specific placement and internship support",
+        site: "https://www.technoindiauniversity.ac.in/",
+        category: "C"
+      },
+      {
+        name: "Bharati Vidyapeeth University",
+        shortName: "Bharati Vidyapeeth",
+        city: "Pune, Maharashtra",
+        region: "West",
+        icon: "📚",
+        areas: ["Engineering", "Science", "Business", "Arts", "Law"],
+        courses: "Engineering · Science · Business · Arts · Law",
+        admission: "Admission routes vary by school and programme. Check the latest official admissions notice and eligibility rules.",
+        admissionLink: "https://www.bvuniversity.edu.in/",
+        placement: "Official placement support and student outcomes information",
+        site: "https://www.bvuniversity.edu.in/",
+        category: "C"
+      },
+      {
+        name: "Mangalore University",
+        shortName: "Mangalore University",
+        city: "Mangaluru, Karnataka",
+        region: "South",
+        icon: "🌿",
+        areas: ["Arts", "Science", "Business", "Law"],
+        courses: "Arts · Science · Business · Law",
+        admission: "Eligibility and selection vary by programme and may include merit lists or university-level entrance exams. Check the official portal.",
+        admissionLink: "https://mangaloreuniversity.ac.in/",
+        placement: "Check university and affiliated-college placement support",
+        site: "https://mangaloreuniversity.ac.in/",
+        category: "C"
+      },
+      {
+        name: "Mizoram University",
+        shortName: "Mizoram University",
+        city: "Aizawl, Mizoram",
+        region: "East",
+        icon: "🏞️",
+        areas: ["Arts", "Science", "Business", "Law"],
+        courses: "Arts · Science · Business · Law",
+        admission: "Admission methods vary by course and may include entrance tests or merit-based selection. Review the current official notifications.",
+        admissionLink: "https://mzu.edu.in/",
+        placement: "Check official placement support and student outcomes",
+        site: "https://mzu.edu.in/",
+        category: "C"
+      },
+      {
+        name: "North Bengal University",
+        shortName: "NBU",
+        city: "Darjeeling, West Bengal",
+        region: "East",
+        icon: "🌄",
+        areas: ["Arts", "Science", "Business", "Law"],
+        courses: "Arts · Science · Business · Law",
+        admission: "Admission steps depend on the programme and may include merit lists or entrance-based selection. Check the current official admission guidance.",
+        admissionLink: "https://www.nbu.ac.in/",
+        placement: "Check department-specific placement and career support",
+        site: "https://www.nbu.ac.in/",
+        category: "C"
+      },
+      {
+        name: "NIMS University",
+        shortName: "NIMS",
+        city: "Jaipur, Rajasthan",
+        region: "North",
+        icon: "🏫",
+        areas: ["Engineering", "Science", "Business", "Medical"],
+        courses: "Engineering · Science · Business · Medical",
+        admission: "Admission requirements vary by programme and may include entrance exams, merit review, or interviews. Check the official admissions page.",
+        admissionLink: "https://www.nimsuniversity.org/",
+        placement: "Official placement support and internship opportunities",
+        site: "https://www.nimsuniversity.org/",
+        category: "C"
+      }
+    ];
+
+      const normalizeKey = value => value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+      const seen = new Set();
+
+      return sourceColleges.filter(college => {
+        const keys = [
+          normalizeKey(college.name),
+          normalizeKey(college.shortName)
+        ].filter(Boolean);
+
+        for (const key of keys) {
+          if (seen.has(key)) {
+            return false;
+          }
+        }
+
+        keys.forEach(key => seen.add(key));
+        return true;
+      });
+    })();
+
+    const collegeList = document.getElementById("collegeList");
+    const collegeSearch = document.getElementById("collegeSearch");
+    const courseFilter = document.getElementById("courseFilter");
+    const locationFilter = document.getElementById("locationFilter");
+
+    const galleryTopics = [
+      { query: "campus buildings", label: "Campus" },
+      { query: "sports grounds", label: "Grounds" },
+      { query: "college festival fest", label: "Fests" }
+    ];
+    let galleryObserver;
+
+    function getGoogleImagesUrl(college, topic) {
+      const query = `${college.name} ${college.city} ${topic.query}`;
+      return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
+    }
+
+    function getCommonsSearchUrl(college, topic) {
+      const params = new URLSearchParams({
+        action: "query",
+        generator: "search",
+        gsrsearch: `filetype:bitmap "${college.name}" ${topic.query}`,
+        gsrnamespace: "6",
+        gsrlimit: "1",
+        prop: "imageinfo",
+        iiprop: "url|extmetadata",
+        iiurlwidth: "1200",
+        format: "json",
+        origin: "*"
+      });
+      return `https://commons.wikimedia.org/w/api.php?${params}`;
+    }
+
+    function getMetadataText(metadata, key, fallback) {
+      const value = metadata && metadata[key] && metadata[key].value;
+      if (!value) return fallback;
+      const parsed = new DOMParser().parseFromString(value, "text/html");
+      return parsed.body.textContent.trim() || fallback;
+    }
+
+    async function getCollegePhoto(college, topic) {
+      const response = await fetch(getCommonsSearchUrl(college, topic));
+      if (!response.ok) throw new Error(`Wikimedia Commons returned ${response.status}`);
+      const data = await response.json();
+      const page = Object.values(data.query?.pages || {})[0];
+      const image = page && page.imageinfo && page.imageinfo[0];
+      if (!image || !image.thumburl || !image.descriptionurl) return null;
+
+      const metadata = image.extmetadata || {};
+      return {
+        src: image.thumburl,
+        page: image.descriptionurl,
+        title: getMetadataText(metadata, "ObjectName", page.title.replace(/^File:/, "")),
+        artist: getMetadataText(metadata, "Artist", "Unknown contributor"),
+        license: getMetadataText(metadata, "LicenseShortName", "See license details"),
+        topic
+      };
+    }
+
+    function showGalleryStatus(gallery, message) {
+      const inner = gallery.querySelector(".carousel-inner");
+      const indicators = gallery.querySelector(".carousel-indicators");
+      inner.innerHTML = `<div class="college-gallery-status">${message}</div>`;
+      indicators.replaceChildren();
+      gallery.querySelectorAll(".carousel-control-prev, .carousel-control-next").forEach(control => {
+        control.classList.add("d-none");
+      });
+    }
+
+    async function loadCollegeGallery(gallery, college) {
+      gallery.dataset.galleryLoaded = "true";
+      const results = await Promise.allSettled(galleryTopics.map(topic => getCollegePhoto(college, topic)));
+      const photos = [];
+
+      results.forEach((result, index) => {
+        if (result.status === "rejected") {
+          console.error(`Could not load ${galleryTopics[index].label.toLowerCase()} image for ${college.name}.`, result.reason);
+        } else if (result.value && !photos.some(photo => photo.src === result.value.src)) {
+          photos.push(result.value);
+        }
+      });
+
+      if (!gallery.isConnected) return;
+      if (photos.length === 0) {
+        showGalleryStatus(gallery, "No matching college-specific photos are available right now.");
+        return;
+      }
+
+      const carouselId = gallery.id;
+      const indicators = gallery.querySelector(".carousel-indicators");
+      const inner = gallery.querySelector(".carousel-inner");
+      indicators.replaceChildren();
+      inner.replaceChildren();
+      photos.forEach((photo, index) => {
+        const indicator = document.createElement("button");
+        indicator.type = "button";
+        indicator.dataset.bsTarget = `#${carouselId}`;
+        indicator.dataset.bsSlideTo = index;
+        indicator.setAttribute("aria-label", `Photo ${index + 1}`);
+        if (index === 0) {
+          indicator.classList.add("active");
+          indicator.setAttribute("aria-current", "true");
+        }
+        indicators.append(indicator);
+
+        const item = document.createElement("div");
+        item.className = `carousel-item${index === 0 ? " active" : ""}`;
+        const image = document.createElement("img");
+        image.src = photo.src;
+        image.alt = photo.title;
+        image.loading = "lazy";
+        const credit = document.createElement("div");
+        credit.className = "college-image-credit";
+        const creditLink = document.createElement("a");
+        creditLink.href = photo.page;
+        creditLink.target = "_blank";
+        creditLink.rel = "noopener noreferrer";
+        creditLink.title = `${photo.artist} · ${photo.license}`;
+        creditLink.textContent = `Photo: ${photo.artist} · ${photo.license}`;
+        const googleLink = document.createElement("a");
+        googleLink.href = getGoogleImagesUrl(college, photo.topic);
+        googleLink.target = "_blank";
+        googleLink.rel = "noopener noreferrer";
+        googleLink.textContent = `More ${photo.topic.label.toLowerCase()} photos on Google Images`;
+        credit.append(creditLink, document.createTextNode(" · "), googleLink);
+        item.append(image, credit);
+        inner.append(item);
+      });
+      gallery.querySelectorAll(".carousel-control-prev, .carousel-control-next").forEach(control => {
+        control.classList.toggle("d-none", photos.length < 2);
+      });
+    }
+
+    function renderColleges() {
+      const query = collegeSearch.value.trim().toLowerCase();
+      const area = courseFilter.value;
+      const region = locationFilter.value;
+      const matches = colleges.filter(college => {
+        const searchText = `${college.name} ${college.city} ${college.courses} ${college.areas.join(" ")}`.toLowerCase();
+        return searchText.includes(query) &&
+          (!area || college.areas.includes(area)) &&
+          (!region || college.region === region);
+      });
+
+      document.getElementById("resultCount").textContent = `${matches.length} ${matches.length === 1 ? "college" : "colleges"} found`;
+      document.getElementById("noResults").classList.toggle("d-none", matches.length !== 0);
+      if (galleryObserver) galleryObserver.disconnect();
+      collegeList.innerHTML = matches.map((college, index) => {
+        const carouselId = `college-carousel-${college.shortName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${index}`;
+
+        return `
+        <div class="col-md-6 col-lg-4">
+          <article class="card college-card">
+            <div id="${carouselId}" class="carousel slide college-carousel" data-college-gallery="${college.shortName}" aria-label="${college.name} photo gallery">
+              <div class="carousel-indicators"></div>
+              <div class="carousel-inner">
+                <div class="college-gallery-status">Loading this college’s campus, grounds, and festival photos…</div>
+              </div>
+              <button class="carousel-control-prev d-none" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" aria-label="Previous slide">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next d-none" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" aria-label="Next slide">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="d-flex flex-wrap gap-2 px-3 pt-2" aria-label="Search college photos on Google Images">
+              ${galleryTopics.map(topic => `<a class="small link-primary" href="${getGoogleImagesUrl(college, topic)}" target="_blank" rel="noopener noreferrer">${topic.label} on Google Images</a>`).join('<span class="text-secondary" aria-hidden="true">·</span>')}
+            </div>
+            <div class="card-body p-4 d-flex flex-column">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="college-icon" aria-hidden="true">${college.icon}</div>
+                <div>
+                  <h3 class="h5 fw-bold mb-1">${college.shortName}</h3>
+                  <div class="college-location">📍 ${college.city}</div>
+                </div>
+              </div>
+              <p class="small text-secondary mb-3">${college.courses}</p>
+              <div class="placement-box mb-3">
+                <small>Placement information</small>
+                <strong>${college.placement}</strong>
+              </div>
+              <div class="d-flex flex-wrap gap-2 mb-4">
+                ${college.areas.map(item => `<span class="tag">${item}</span>`).join("")}
+              </div>
+              <div class="d-flex gap-2 mt-auto">
+                <button class="btn btn-primary flex-grow-1" type="button" data-college="${college.shortName}" data-bs-toggle="modal" data-bs-target="#collegeModal">Admission details</button>
+                <a class="btn btn-outline-primary" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(college.name + " " + college.city)}" target="_blank" rel="noopener noreferrer" aria-label="View ${college.shortName} on map" title="View location on map">📍</a>
+              </div>
+              <div class="d-flex flex-wrap gap-2 mt-2">
+                ${college.category ? `<span class="badge rounded-pill text-bg-light border">Category ${college.category}</span>` : ""}
+                ${college.dream ? '<span class="badge rounded-pill text-bg-warning">Dream college</span>' : ""}
+              </div>
+            </div>
+          </article>
+        </div>
+      `;
+      }).join("");
+
+      galleryObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const gallery = entry.target;
+          galleryObserver.unobserve(gallery);
+          const college = colleges.find(item => item.shortName === gallery.dataset.collegeGallery);
+          if (college) loadCollegeGallery(gallery, college);
+        });
+      }, { rootMargin: "250px" });
+      collegeList.querySelectorAll("[data-college-gallery]").forEach(gallery => galleryObserver.observe(gallery));
+    }
+
+    document.getElementById("collegeList").addEventListener("click", event => {
+      const button = event.target.closest("[data-college]");
+      if (!button) return;
+      const college = colleges.find(item => item.shortName === button.dataset.college);
+      if (!college) return;
+
+      document.getElementById("collegeModalTitle").textContent = college.name;
+      document.getElementById("collegeModalLocation").textContent = `📍 ${college.city}`;
+      document.getElementById("collegeModalAdmission").textContent = college.admission;
+      document.getElementById("collegeModalPlacement").textContent = college.placement + ". Find the latest programme-specific report on the official website.";
+      document.getElementById("collegeOfficialLink").href = college.site;
+      document.getElementById("collegeAdmissionLink").href = college.admissionLink;
+      document.getElementById("collegeMapLink").href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(college.name + " " + college.city)}`;
+    });
+
+    [collegeSearch, courseFilter, locationFilter].forEach(control => {
+      control.addEventListener(control === collegeSearch ? "input" : "change", renderColleges);
+    });
+
+    document.getElementById("resetFilters").addEventListener("click", () => {
+      collegeSearch.value = "";
+      courseFilter.value = "";
+      locationFilter.value = "";
+      renderColleges();
+      collegeSearch.focus();
+    });
+
+    renderColleges();
+  </script>
+
+  <div class="modal fade" id="collegeModal" tabindex="-1" aria-labelledby="collegeModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <h2 class="modal-title h4 fw-bold" id="collegeModalTitle">College information</h2>
+            <p class="college-location mb-0" id="collegeModalLocation"></p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h3 class="h6 fw-bold">Admission route</h3>
+          <p class="text-secondary" id="collegeModalAdmission"></p>
+          <h3 class="h6 fw-bold">Placements</h3>
+          <p class="text-secondary mb-0" id="collegeModalPlacement"></p>
+        </div>
+        <div class="modal-footer border-0 pt-0 flex-wrap">
+          <a class="btn btn-outline-primary" id="collegeMapLink" href="#" target="_blank" rel="noopener noreferrer">Open map</a>
+          <a class="btn btn-outline-primary" id="collegeAdmissionLink" href="#" target="_blank" rel="noopener noreferrer">Admission page</a>
+          <a class="btn btn-primary" id="collegeOfficialLink" href="#" target="_blank" rel="noopener noreferrer">Official website</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
